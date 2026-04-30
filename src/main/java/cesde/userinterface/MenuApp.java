@@ -47,9 +47,9 @@ public class MenuApp {
    }
 
 
-   public void menuApplication(boolean token){
+   public void menuApplication(boolean control){
 
-        while(token) {
+        while(control) {
             int menu = cg.leerEntero("Seleccione\n1. Estudiante\n2. Gestion de Cursos\n6. Volver");
             switch (menu) {
                 case 1:
@@ -62,7 +62,7 @@ public class MenuApp {
                     break;
                 case 6:
                     cg.Mensaje("Volviendo al menú principal");
-                    token = false;
+                    control = false;
                     break;
                 default:
                     cg.Mensaje("Seleccione menu valido");
