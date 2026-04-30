@@ -7,7 +7,8 @@ import cesde.util.TypeValidator;
 import java.util.List;
 import java.util.Optional;
 
-public class StudentServiceImpl implements StudentService {
+public class StudentServiceImpl {
+    static cesde.clsGenerales cg = new cesde.clsGenerales();
 
     private final StudentRepository studentRepository;
 
@@ -16,12 +17,13 @@ public class StudentServiceImpl implements StudentService {
         this.studentRepository= studentRepository;// Esto es una inyeccion de dependencias
     }
 
-    @Override
+
     public Student createStudentService(){
 
         Student student = new Student();
 
         student.setId(TypeValidator.validateInt("Ingrese el id del estudiante"));
+        student.setNumber(TypeValidator.validateInt("Ingrese el numero del estudiante"));
         student.setName(TypeValidator.validateString("Ingrese el Nombre del Estudiante"));
         student.setLastName(TypeValidator.validateString("Ingrese el apellido del estudiante"));
         student.setEmail(TypeValidator.validateString("Ingrese un email valido"));
@@ -30,20 +32,18 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.createStudentRepository(student);
     }
 
-    @Override
+
     public Student updateStudentService(int id){
 
         Student student = studentRepository.getStudentById(id);
 
         if(id == student.getId()){
-            System.out.println("Seleccione el dato a actualizar \n" +
+            int option = TypeValidator.validateInt("Seleccione el dato a actualizar \n" +
                     "1. id \n" +
                     "2. Nombre \n" +
                     "3. Apellido \n" +
                     "4. Email \n" +
-                    "5. Estado ");
-
-            int option = TypeValidator.validateInt("Opcion: ");
+                    "5. Estado \nOpcion: ");
 
             switch (option){
                 case 1:
@@ -62,7 +62,7 @@ public class StudentServiceImpl implements StudentService {
                     student.setStatus(TypeValidator.validateBoolean("Actualizar Estado"));
                     break;
                 default:
-                    System.out.println("Seleccione una opción valida");
+                    cg.Mensaje("Seleccione una opción valida");
             }
 
         }
@@ -70,33 +70,51 @@ public class StudentServiceImpl implements StudentService {
         return student;
     }
 
-    @Override
+
     public Optional<Student> getStudentById(int id) {
 
         Student student = studentRepository.getStudentById(id);
 
         if (id == student.getId()) {
-            System.out.println("id:" + student.getId() + "\n" +
+            cg.Mensaje("id:" + student.getId() + "\n" +
                     "Nombre:" + student.getName() + "\n" +
                     "Apellido " + student.getLastName() + "\n" +
                     "email: " + student.getEmail() + "\n" +
                     "Status: " + student.isStatus());
         } else {
-            System.out.println("Id no encontrado");
+            cg.Mensaje("Id no encontrado");
         }
 
         return Optional.ofNullable(student);
     }
 
-    @Override
+
     public List<Student> getAllStudents() {
         return studentRepository.getAllStudents();
     }
 
-    @Override
+
     public void deleteStudent(int id) {
-        System.out.println("Estoy en el service");
+        cg.Mensaje("Estoy en el service");
         studentRepository.deleteStudentRepository(id);
     }
 
+
+    public Student getStudentByName(String name) {
+        for (Student student : studentRepository.getAllStudents()) {
+            if (student.getName().equalsIgnoreCase(name)) {
+                return student;
+            }
+        }
+        return null;
+    }
+
+
+    public boolean isStudentActive(int id) {
+        Student student = studentRepository.getStudentById(id);
+        if (student != null) {
+            return student.isStatus();
+        }
+        return false;
+    }
 }

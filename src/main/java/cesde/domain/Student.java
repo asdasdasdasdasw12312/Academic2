@@ -1,17 +1,15 @@
 package cesde.domain;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class Student {
-
-    Scanner sc = new Scanner(System.in);
 
     // POJO - Plain Old Java Object
 
     // Atributes
 
     private int id;
+    private int number;
     private String name;
     private String lastName;
     private String email;
@@ -44,6 +42,14 @@ public class Student {
 
     public void setId(int id){
         this.id = id;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public String getName() {

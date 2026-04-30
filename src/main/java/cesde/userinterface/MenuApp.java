@@ -3,12 +3,11 @@ package cesde.userinterface;
 import cesde.domain.Student;
 import cesde.util.TypeValidator;
 import cesde.view.StudentView;
-
-import java.util.Scanner;
+import cesde.clsGenerales;
 
 public class MenuApp {
 
-    Scanner sc = new Scanner(System.in);
+    static clsGenerales cg = new clsGenerales();
 
     private final StudentView studentView;
 
@@ -19,36 +18,29 @@ public class MenuApp {
 
    public void mainMenu(){
 
-       System.out.println("Presione 1 para iniciar la Aplicación");
-
-       int init = sc.nextInt();
-
-       sc.nextLine();
+       int init = cg.leerEntero("Presione 1 para iniciar la Aplicación\nPresione 0 para salir");
 
        while(init != 0){
 
-           System.out.println("Seleccione una opción 1. Registro 2. Inicio de Sesion 3. Salir ");
-
-           int option = sc.nextInt();
-
-           sc.nextLine();
+           int option = cg.leerEntero("Seleccione una opción\n1. Registro\n2. Inicio de Sesion\n3. Salir");
 
            switch (option){
 
                case 1:
-                   System.out.println("Crear usuario");
+                   cg.Mensaje("Crear usuario");
                    studentView.createStudent();
                    break;
                case 2:
-                   System.out.println("Iniciar Sesión");
+                   cg.Mensaje("Iniciar Sesión");
                    boolean token= true;
                    menuApplication(token);
                    break;
                case 3:
-                   System.out.println("Salir del sistema ");
+                   cg.Mensaje("Salir del sistema ");
                    init = 0;
+                   break;
                default:
-                   System.out.println("Ingrese una opción valida");
+                   cg.Mensaje("Ingrese una opción valida");
            }
        }
 
@@ -58,23 +50,22 @@ public class MenuApp {
    public void menuApplication(boolean token){
 
         while(token) {
-            System.out.println("Seleccione 1. Estudiante 2. Gestion de Cursos");
-            int menu = sc.nextInt();
+            int menu = cg.leerEntero("Seleccione\n1. Estudiante\n2. Gestion de Cursos\n6. Volver");
             switch (menu) {
                 case 1:
-                    System.out.println("Estudiante");
+                    cg.Mensaje("Estudiante");
                     studentMenu();
                     break;
                 case 2:
-                    System.out.println("Gestion de Cursos");
+                    cg.Mensaje("Gestion de Cursos");
                     courseMenu();
                     break;
                 case 6:
-                    System.out.println("Volviendo al menú principal");
+                    cg.Mensaje("Volviendo al menú principal");
                     token = false;
                     break;
                 default:
-                    System.out.println("Seleccione menu valido");
+                    cg.Mensaje("Seleccione menu valido");
             }
 
         }
@@ -84,24 +75,20 @@ public class MenuApp {
 
    public void courseMenu(){
 
-       System.out.println("Menu Curso");
+       cg.Mensaje("Menu Curso");
        boolean init = true;
-       sc.nextLine();
 
        while(init){
-           System.out.println("1. Crear Curso 2. Actualizar curso 3. ver Cursos 4. Ver curso por Id 5. Eliminar Curso 6. Volver");
-
-           int opt = sc.nextInt();
-           sc.nextLine();
+           int opt = cg.leerEntero("1. Crear Curso\n2. Actualizar curso\n3. ver Cursos\n4. Ver curso por Id\n5. Eliminar Curso\n6. Volver");
            switch (opt){
                case 1:
-                   System.out.println("Crear Curso");
+                   cg.Mensaje("Crear Curso");
                    break;
                case 6:
                    init = false;
                    break;
                default:
-                   System.out.println("Seleccione opción valida");
+                   cg.Mensaje("Seleccione opción valida");
            }
        }
    }
@@ -110,46 +97,40 @@ public class MenuApp {
 
     public void studentMenu(){
 
-        System.out.println("Menu Estudiate");
+        cg.Mensaje("Menu Estudiante");
         boolean init = true;
-        sc.nextLine();
 
         while(init){
-            System.out.println("1. Crear Estudiante 2. Actualizar Estudiante 3. ver Estudiantes 4. VerEstudiante por Id 5. Eliminar Estudiante 6. Volver");
-
-            int opt = sc.nextInt();
-            sc.nextLine();
+            int opt = cg.leerEntero("1. Crear Estudiante\n2. Actualizar Estudiante\n3. ver Estudiantes\n4. VerEstudiante por Id\n5. Eliminar Estudiante\n6. Volver");
             switch (opt){
                 case 1:
-                    System.out.println("Crear Estudiante");
+                    cg.Mensaje("Crear Estudiante");
                     studentView.createStudent();
                     break;
                 case 2:
-                    System.out.println("Actualizar Estudiante");
+                    cg.Mensaje("Actualizar Estudiante");
                     studentView.updateStudent(TypeValidator.validateInt("Ingrese el id del estudiante a actualizar"));
                     break;
                 case 3:
-                    System.out.println("Ver Estudiantes");
+                    cg.Mensaje("Ver Estudiantes");
                     studentView.getAllStudents();
                     break;
                 case 4:
-                    System.out.println("Ver estudiante por id");
-                    System.out.println("Ingrese el id del estudiante");
-                    int id = sc.nextInt();
+                    cg.Mensaje("Ver estudiante por id");
+                    int id = cg.leerEntero("Ingrese el id del estudiante");
                     studentView.getStudentById(id);
                     break;
                 case 5:
-                    System.out.println("Eliminar Estudiante");
-                    System.out.println("Ingrese el id del estudiante");
-                    int idToRemove = sc.nextInt();
+                    cg.Mensaje("Eliminar Estudiante");
+                    int idToRemove = cg.leerEntero("Ingrese el id del estudiante a eliminar");
                     studentView.deleteStudent(idToRemove);
                     break;
                 case 6:
-                    System.out.println("Volviendo al menú principal");
+                    cg.Mensaje("Volviendo al menú principal");
                     init = false;
                     break;
                 default:
-                    System.out.println("Seleccione opción valida");
+                    cg.Mensaje("Seleccione opción valida");
             }
         }
     }

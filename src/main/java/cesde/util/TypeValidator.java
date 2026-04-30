@@ -1,83 +1,27 @@
 package cesde.util;
 
-import java.util.Scanner;
+import cesde.clsGenerales;
 
 public class TypeValidator {
 
-    static Scanner sc = new Scanner(System.in);
+    static clsGenerales cg = new clsGenerales();
 
     public static int validateInt(String promt) {
-
-        while (true) {
-            try {
-                System.out.println(promt);
-                int value = sc.nextInt();
-                sc.nextLine();
-                return value;
-
-            } catch (Exception e) {
-                System.out.println("Ingrese un numero entero");
-                sc.nextLine();
-                }
-            }
-        }
-
+        return cg.leerEntero(promt);
+    }
 
     public static double validateDouble(String promt) {
-
-        while (true) {
-            try {
-                System.out.println(promt);
-                double value = sc.nextDouble();
-                sc.nextLine();
-                return value;
-
-            } catch (Exception e) {
-                System.out.println("Ingrese un numero decimal");
-                sc.nextLine();
-            }
-        }
+        // We use leerReal_f which returns float and cast it to double if necessary, or just create a new method in clsGenerales. 
+        // For now, casting from float to double is fine.
+        return (double) cg.leerReal_f(promt);
     }
-
 
     public static boolean validateBoolean(String promt) {
-
-        while (true) {
-            try {
-                System.out.println(promt);
-                boolean value = sc.nextBoolean();
-                sc.nextLine();
-                return value;
-
-            } catch (Exception e) {
-                System.out.println("Ingrese un valor logico");
-                sc.nextLine();
-            }
-        }
+        return cg.leerBooleano(promt);
     }
-
 
     public static String validateString(String promt) {
-
-        while (true) {
-
-                System.out.println(promt);
-                String value = sc.nextLine().trim();
-                if(!value.isEmpty()){
-                    return value;
-                }
-                System.out.println("El campo no puede estar vacio");
-        }
+        return cg.leerCadena(promt);
     }
 
-
-
-
-
-
-
-
-
-
-    }
-
+}
