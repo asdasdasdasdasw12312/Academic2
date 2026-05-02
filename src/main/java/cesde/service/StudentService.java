@@ -27,7 +27,6 @@ public class StudentService {
         Student student = new Student();
 
         student.setId(TypeValidator.validateInt("Ingrese el id del estudiante"));
-        student.setNumber(TypeValidator.validateInt("Ingrese el numero del estudiante"));
         student.setName(TypeValidator.validateString("Ingrese el Nombre del Estudiante"));
         student.setLastName(TypeValidator.validateString("Ingrese el apellido del estudiante"));
         student.setEmail(TypeValidator.validateEmail("Ingrese un email valido"));

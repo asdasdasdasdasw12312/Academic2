@@ -9,7 +9,6 @@ public class Student {
     // Atributes
 
     private int id;
-    private int number;
     private String name;
     private String lastName;
     private String email;
@@ -21,9 +20,8 @@ public class Student {
 
     }
 
-    public Student(int id, int number, String name,String lastName, String email, boolean status) {
+    public Student(int id, String name,String lastName, String email, boolean status) {
         this.id = id;
-        this.number = number;
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -39,14 +37,6 @@ public class Student {
 
     public void setId(int id){
         this.id = id;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
     }
 
     public String getName() {
