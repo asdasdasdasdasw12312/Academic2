@@ -1,3 +1,4 @@
+//para todos los service y el menu app use regions, para mi es una forma mas organizada de modular bloques de codigo
 package cesde.service;
 
 import cesde.domain.Course;
@@ -5,15 +6,18 @@ import cesde.repository.CourseRepository;
 import cesde.util.TypeValidator;
 import cesde.clsGenerales;
 
-public class CourseServiceImpl {
+public class CourseService {
     private final CourseRepository courseRepository;
     static clsGenerales cg = new clsGenerales();
 
-    public CourseServiceImpl(CourseRepository courseRepository) {
+    // region Constructor
+    public CourseService(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
     }
+    // endregion
 
 
+    // region Crear
     public Course createCourse() {
         Course course = new Course();
         course.setId(TypeValidator.validateInt("Ingrese el id del curso"));
@@ -21,8 +25,10 @@ public class CourseServiceImpl {
         course.setName(TypeValidator.validateString("Ingrese el nombre del curso"));
         return courseRepository.createCourse(course);
     }
+    // endregion
 
 
+    // region Buscar
     public Course getCourseById(int id) {
         return courseRepository.getCourseById(id);
     }
@@ -36,7 +42,9 @@ public class CourseServiceImpl {
             cg.Mensaje("Curso no encontrado");
         }
     }
+    // endregion
 
+    // region Actualizar
     public Course updateCourse(int id) {
         Course course = courseRepository.getCourseById(id);
         if (course != null && id == course.getId()) {
@@ -62,4 +70,5 @@ public class CourseServiceImpl {
         }
         return course;
     }
+    // endregion
 }

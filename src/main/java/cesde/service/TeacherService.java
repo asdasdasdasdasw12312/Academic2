@@ -1,30 +1,36 @@
+//para todos los service y el menu app use regions, para mi es una forma mas organizada de modular bloques de codigo
 package cesde.service;
 
 import cesde.domain.Teacher;
 import cesde.repository.TeacherRepository;
 import cesde.util.TypeValidator;
 
-public class TeacherServiceImpl {
+public class TeacherService {
     static cesde.clsGenerales cg = new cesde.clsGenerales();
     private final TeacherRepository teacherRepository;
 
-    public TeacherServiceImpl(TeacherRepository teacherRepository) {
+    // region Constructor
+    public TeacherService(TeacherRepository teacherRepository) {
         this.teacherRepository = teacherRepository;
     }
+    // endregion
 
 
+    // region Crear
     public Teacher createProfessor() {
         Teacher teacher = new Teacher();
         teacher.setId(TypeValidator.validateInt("Ingrese el id del profesor"));
         teacher.setName(TypeValidator.validateString("Ingrese el nombre"));
         teacher.setLastName(TypeValidator.validateString("Ingrese el apellido"));
-        teacher.setEmail(TypeValidator.validateString("Ingrese el email"));
+        teacher.setEmail(TypeValidator.validateEmail("Ingrese el email"));
         teacher.setSpeciality(TypeValidator.validateString("Ingrese la especialidad"));
         teacher.setStatus(TypeValidator.validateBoolean("Ingrese el estado"));
         return teacherRepository.createTeacher(teacher);
     }
+    // endregion
 
 
+    // region Buscar
     public Teacher getProfessorById(int id) {
         return teacherRepository.getTeacherById(id);
     }
@@ -36,7 +42,9 @@ public class TeacherServiceImpl {
         }
         return false;
     }
+    // endregion
 
+    // region Actualizar
     public Teacher updateTeacher(int id) {
         Teacher teacher = teacherRepository.getTeacherById(id);
         if (teacher != null && id == teacher.getId()) {
@@ -59,7 +67,7 @@ public class TeacherServiceImpl {
                     teacher.setLastName(TypeValidator.validateString("Actualizar Apellido"));
                     break;
                 case 4:
-                    teacher.setEmail(TypeValidator.validateString("Actualizar Email"));
+                    teacher.setEmail(TypeValidator.validateEmail("Actualizar Email"));
                     break;
                 case 5:
                     teacher.setSpeciality(TypeValidator.validateString("Actualizar Especialidad"));
@@ -73,4 +81,5 @@ public class TeacherServiceImpl {
         }
         return teacher;
     }
+    // endregion
 }

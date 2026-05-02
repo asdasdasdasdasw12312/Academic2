@@ -1,7 +1,7 @@
 package cesde.view;
 
 import cesde.domain.Student;
-import cesde.service.StudentServiceImpl;
+import cesde.service.StudentService;
 import cesde.clsGenerales;
 
 import java.util.List;
@@ -10,42 +10,50 @@ public class StudentView {
 
     static clsGenerales cg = new clsGenerales();
 
-    private final StudentServiceImpl studentServiceImpl;
+    private final StudentService studentService;
 
-    public StudentView(StudentServiceImpl studentServiceImpl){
+    public StudentView(StudentService studentService){
 
-        this.studentServiceImpl = studentServiceImpl; // Esto es inyeccion de dependencias
+        this.studentService = studentService; // Esto es inyeccion de dependencias
     }
 
 
     public void createStudent(){
 
-        studentServiceImpl.createStudentService();
+        studentService.createStudentService();
 
     }
 
     public void getStudentById(int id){
 
 
-        studentServiceImpl.getStudentById(id);
+        studentService.getStudentById(id);
 
 
     }
 
-    public List<Student> getAllStudents(){
-
-        return studentServiceImpl.getAllStudents();
+    public void getAllStudents(){
+        List<Student> students = studentService.getAllStudents();
+        if(students.isEmpty()){
+            cg.Mensaje("No hay estudiantes registrados.");
+            return;
+        }
+        StringBuilder sb = new StringBuilder("Lista de estudiantes:\n");
+        for(Student s : students){
+            sb.append("- Id: ").append(s.getId()).append(" | Nombre: ").append(s.getName()).append(" ").append(s.getLastName()).append("\n");
+        }
+        cg.Mensaje(sb.toString());
     }
 
     public void updateStudent(int id){
 
-        studentServiceImpl.updateStudentService(id);
+        studentService.updateStudentService(id);
 
     }
 
     public void deleteStudent(int id){
             cg.Mensaje("estoy en el view");
-            studentServiceImpl.deleteStudent(id);
+            studentService.deleteStudent(id);
     }
 
 

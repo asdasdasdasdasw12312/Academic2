@@ -11,8 +11,9 @@ public class TypeValidator {
     }
 
     public static double validateDouble(String promt) {
-        // We use leerReal_f which returns float and cast it to double if necessary, or just create a new method in clsGenerales. 
-        // For now, casting from float to double is fine.
+        //para este metodo se usa la clase clsGenerales, y su metodo para leer flotantes pero aun no hay un metodo para leer doubles
+        //entonces podemos hacer 2 cosas aprovechar el casting explicito o hacer un nuevo metodo que verfique doubles
+        //ya que el programa no es tan grande, usar casting explicito me parece lo mas sencillo
         return (double) cg.leerReal_f(promt);
     }
 
@@ -24,4 +25,15 @@ public class TypeValidator {
         return cg.leerCadena(promt);
     }
 
+    public static String validateEmail(String promt) {
+        String email;
+        while (true) {
+            email = cg.leerCadena(promt);
+            if (email != null && email.contains("@")) {
+                return email;
+            } else {
+                cg.Mensaje("Error: El correo ingresado no es valido (Debe contener '@'). Por favor, intente de nuevo.");
+            }
+        }
+    }
 }

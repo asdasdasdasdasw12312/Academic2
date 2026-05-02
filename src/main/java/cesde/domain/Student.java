@@ -21,12 +21,9 @@ public class Student {
 
     }
 
-    public Student(String email){
-        this.email = email;
-    }
-
-    public Student(int id, String name,String lastName, String email, boolean status) {
+    public Student(int id, int number, String name,String lastName, String email, boolean status) {
         this.id = id;
+        this.number = number;
         this.name = name;
         this.lastName = lastName;
         this.email = email;
